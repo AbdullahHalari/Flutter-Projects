@@ -1,11 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:hungryman/post.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:path/path.dart' as path;
+
 
 class Home extends StatefulWidget {
   // const Home({ Key? key }) : super(key: key);
@@ -15,92 +9,53 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Stream postStream =
-      FirebaseFirestore.instance.collection('posts').snapshots();
-  TextEditingController titlecontroller = TextEditingController();
-  String imagePath;
-
   @override
   Widget build(BuildContext context) {
-    void pickImage() async {
-      final ImagePicker _picker = ImagePicker();
-      final image = await _picker.getImage(source: ImageSource.gallery);
-      setState(() {
-        imagePath = image.path;
-      });
-      print(image.path);
-    }
-
-    void submit() async {
-      try {
-        String title = titlecontroller.text;
-        // firebase_storage.FirebaseStorage storage =
-        //     firebase_storage.FirebaseStorage.instance;
-        String imageName = path.basename(imagePath);
-        firebase_storage.Reference ref =
-            firebase_storage.FirebaseStorage.instance.ref('/$imageName');
-
-        File file = File(imagePath);
-        await ref.putFile(file);
-        String downloadUrl = await ref.getDownloadURL();
-        FirebaseFirestore db = FirebaseFirestore.instance;
-        await db.collection("posts").add({
-          "title": title,
-          "url": downloadUrl,
-        });
-        print("upload successfully");
-        titlecontroller.clear();
-      } catch (e) {
-        print(e);
-      }
-    }
-
+    
     return Scaffold(
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-          child: Column(
-            children: [
-              TextFormField(
-                controller: titlecontroller,
-                decoration: InputDecoration(
-                  labelText: 'enter title',
-                ),
-              ),
-              ElevatedButton(onPressed: pickImage, child: Text("choose image")),
-              ElevatedButton(onPressed: submit, child: Text("POST")),
-              Expanded(
-                  child: Container(
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: postStream,
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return Text('Something went wrong');
-                    }
+      appBar: PreferredSize(
+          preferredSize: Size.fromHeight(40.0),
+      child: AppBar(
+        title: Center(child: Text("HUNGRY MAN 😛😋")),
+        backgroundColor: Colors.amber[800],
+        leading: IconButton(
+    onPressed: () {
 
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text("Loading");
-                    }
-
-                    return ListView(
-                      children:
-                          snapshot.data.docs.map((DocumentSnapshot document) {
-                        Map data = document.data();
-                        String id = document.id;
-                        data["id"] = id;
-                        return Post(
-                          data: data,
-                        );
-                      }).toList(),
-                    );
-                  },
-                ),
-              ))
-            ],
-          ),
-        ),
+    },
+    icon: Icon(Icons.close),
+  ),
       ),
+      ),
+      body: SingleChildScrollView(
+        child:
+        Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              child: TextField(
+                              onSubmitted: (submittedText) {
+                                
+                              },
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.grey[300],
+                                  prefixIcon: Icon(
+                                    Icons.search,
+                                    color: Colors.black38,
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+         borderSide: BorderSide(color: Colors.black, width: 1),                                    borderRadius: BorderRadius.circular(25)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 1),                               borderRadius:
+                                    BorderRadius.circular(30)),
+                                    labelText: 'Search')),
+            ),
+          )
+        ],
+      ),
+      )
     );
   }
 }

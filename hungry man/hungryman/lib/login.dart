@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hungryman/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:hungryman/Home1post.dart';
 import 'package:hungryman/home.dart';
 
 
@@ -31,9 +32,7 @@ class _LoginState extends State<Login> {
         snapshot.data();
 
         Navigator.push(
-              context,
-                MaterialPageRoute(
-                    builder: (context) => Home()));
+            context, MaterialPageRoute(builder: (context) => Home()));
 
         print("user is logged in");
         // final UserCredential user = await auth.createUserWithEmailAndPassword(

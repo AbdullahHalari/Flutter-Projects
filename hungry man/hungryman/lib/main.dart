@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hungryman/home.dart';
+// import 'package:hungryman/Home1.dart';
 import 'package:hungryman/login.dart';
 import 'package:hungryman/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+import 'dart:async';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,9 +15,7 @@ class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
-    
     return FutureBuilder(
-    
       // Initialize FlutterFire:
       future: _initialization,
       builder: (context, snapshot) {
@@ -31,19 +29,15 @@ class MyApp extends StatelessWidget {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
-            debugShowCheckedModeBanner: false,
+              debugShowCheckedModeBanner: false,
               title: 'HUNGRY MAN',
-              
-
-              home: Form()
-            );
+              home: Form());
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
         return Container();
       },
     );
-    
   }
 }
 
@@ -55,48 +49,55 @@ class Form extends StatefulWidget {
 }
 
 class _FormState extends State<Form> {
-  // @override
+  bool _loadingInProgress;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadingInProgress = true;
+    _loadData();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
-      
-      body: 
-      
-          // Image.asset('images/gwgold.png'),
-          Container(
-            decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/bg2.png"),
-            fit: BoxFit.cover,
-          ),
-            ),
-        child: Padding(
-          padding: const EdgeInsets.all(40.0),
-          child: ListView(
-            children: [
+        body:
 
+            // Image.asset('images/gwgold.png'),
+            Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage("images/bg2.png"),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(40.0),
+        child: ListView(
+          children: [
+            Container(
+                alignment: Alignment.center,
+                child: Text(
+                  "HUNGRY MAN",
+                  style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.amber[800],
+                      fontWeight: FontWeight.w700),
+                )
 
-              Container(
-                alignment: Alignment.center,
-                child: Text("HUNGRY MAN",style: TextStyle(
-                  fontSize: 40,
-                  color: Colors.amber[800],
-                  fontWeight:FontWeight.w700
-                  
-                  
-                ),)
-                 
                 // Title(color: Colors.white, child: Text("WELCOME")),
-              ),
-              Container(
+                ),
+            Container(
                 alignment: Alignment.center,
-                child: Text("you enjoy your meal.",style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.amber,
-                  
-                ),)
-                 
+                child: Text(
+                  "you enjoy your meal.",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.amber,
+                  ),
+                )
+
                 // Title(color: Colors.white, child: Text("WELCOME")),
-              ),
+                ),
             // ElevatedButton(
             //   onPressed: () {
             //     Navigator.push(
@@ -105,44 +106,67 @@ class _FormState extends State<Form> {
             //   child: Text("button")),
             Container(
               padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Image.asset('images/logohm.png',width: 100, height: 150,),
+              child: Image.asset(
+                'images/logohm.png',
+                width: 100,
+                height: 150,
+              ),
             ),
 
-              Container(
-                // height: 50,
-              padding: EdgeInsets.fromLTRB(10, 40, 10, 30),
-              
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.amber[800],
-                  ),
-                    onPressed: () {
-                      Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Login())
-                      );
-                    },
-                    child: Text("login")),
-              ),
-              Container(
-                // height: 50,
-              padding: EdgeInsets.fromLTRB(10, 10, 10, 40),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                   primary: Colors.amber[800]
-                  ),
-                    onPressed: () {
-                      Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Signup()));
-                    },
-                    child: Text("signup")),
-              ),
-            ],
-          ),
-        ),
-      )
+            _buildBody(),
+            // Container(
+            //   // height: 50,
 
-    );
+            // ),
+            Container(
+              // height: 50,
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 40),
+              child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(primary: Colors.amber[800]),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Signup()));
+                  },
+                  child: Text("signup")),
+            ),
+          ],
+        ),
+      ),
+    ));
+  }
+
+  Widget _buildBody() {
+    if (_loadingInProgress) {
+      return new Center(
+        child: new CircularProgressIndicator(
+          backgroundColor: Colors.amber[800],
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
+          strokeWidth: 10,
+        ),
+      );
+    } else {
+      return new Container(
+          padding: EdgeInsets.fromLTRB(10, 40, 10, 30),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.amber[800],
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => Login()));
+              },
+              child: Text("login")));
+    }
+  }
+
+  Future _loadData() async {
+    await new Future.delayed(new Duration(seconds: 5));
+    _dataLoaded();
+  }
+
+  void _dataLoaded() {
+    setState(() {
+      _loadingInProgress = false;
+    });
   }
 }
-
-
