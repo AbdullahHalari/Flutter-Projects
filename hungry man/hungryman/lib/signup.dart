@@ -58,9 +58,8 @@ class _SignupState extends State<Signup> {
                 child: ListView(
                   children: <Widget>[
                     Container(
-                      child: Image.asset(
-                        'images/logohm.png',width: 100, height: 150
-                      ),
+                      child: Image.asset('images/logohm.png',
+                          width: 100, height: 150),
                     ),
                     Container(
                         alignment: Alignment.center,
@@ -151,7 +150,9 @@ class _SignupState extends State<Signup> {
                           suffix: InkWell(
                             onTap: _togglePasswordView,
                             child: Icon(
-                               _isHidden ? Icons.visibility : Icons.visibility_off,
+                              _isHidden
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                               color: Colors.white,
                             ),
                           ),
@@ -181,7 +182,9 @@ class _SignupState extends State<Signup> {
                           suffix: InkWell(
                             onTap: _togglePasswordView,
                             child: Icon(
-                               _isHidden ? Icons.visibility : Icons.visibility_off,
+                              _isHidden
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                               color: Colors.white,
                             ),
                           ),

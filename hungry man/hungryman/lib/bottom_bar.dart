@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+import 'package:bottom_bars/bottom_bars.dart';
+import 'package:hungryman/home.dart';
+// import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hungryman/profile.dart';
+
+
+class Bottombar extends StatefulWidget {
+  
+  // const Bottombar({ Key? key }) : super(key: key);
+
+
+  @override
+  _BottombarState createState() => _BottombarState();
+}
+
+class _BottombarState extends State<Bottombar> {
+  
+  @override
+  Widget build(BuildContext context) {
+    
+    return BottomBars(
+      
+      items: [
+        BottomBarsItem(
+          
+          page: 
+          Scaffold(
+           
+            body: 
+          
+            Home(),
+   
+          ),
+
+          item: Item(
+            activeColor: Colors.black,
+           color: Colors.amber,
+            icon: Icons.home,
+            title: Text("Home"),
+            
+          ),
+          
+        ),
+        BottomBarsItem(
+          page: Scaffold(
+           
+          ),
+          
+
+          item: Item(
+            activeColor: Colors.black,
+            color: Colors.amber,
+            icon: Icons.shopping_cart,
+            title: Text("Cart",),
+          ),
+        ),
+        BottomBarsItem(
+          page: Scaffold(
+             body: Profile(),
+          ),
+          item: Item(
+            activeColor: Colors.black,
+            color: Colors.amber,
+            icon: Icons.account_circle,
+            title: Text("Profile"),
+          ),
+        ),
+        // BottomBarsItem(
+        //   page: Scaffold(
+            
+        //   ),
+        //   item: Item(
+        //     icon: Icons.settings,
+        //     title: Text("Settings"),
+        //     color: Colors.grey,
+        //   ),
+          
+        // ),
+        
+      ],
+    );
+    
+  
+    
+  }
+}

@@ -1,0 +1,27 @@
+Flutter food delivery app theme like swiggy, zomoto, food panda, uber eats...
+
+### Flutter Food Ordering app screens
+- Signup with email and password
+- Login with email and password
+- Home Screen
+- card of all items with the ratings, delivery time and DC.
+- Home screen promo Image display
+- Location Picker
+- GPS picker for current location
+- Restaurant details page
+- Menu category
+- Grid view based menu
+- Search 
+- Cart Page
+- Overall price display & checkout button
+- Address display
+- Profile
+- Edit Profile
+- Manage Addresses
+- Add / Remove address
+- Manage orders
+- View Orders in listview
+- View detailed order information
+- Payments page for wallet integration
+- Help
+- Logout

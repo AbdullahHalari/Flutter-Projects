@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         accentColor: const Color(0xFFffcc00),
         primaryColorBrightness: Brightness.dark,
       ),
-      home: new HomePage(),
+      home: new Bottombar(),
     );
   }
 }

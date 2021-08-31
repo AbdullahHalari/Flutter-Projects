@@ -35,6 +35,8 @@ dependencies:
   image_picker: ^0.6.7+22
   cupertino_icons: ^1.0.2
   loading_animations: ^2.2.0
+  carousel_slider: ^4.0.0
+  bottom_bars: ^1.1.0
 
 
 dev_dependencies:

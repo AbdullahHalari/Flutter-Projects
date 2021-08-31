@@ -10,8 +10,15 @@ class Test extends StatefulWidget {
 class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("hjkasg"),
+      ),
+      body: 
+      Container(
       child: Text("jxlcjljcklxjlcjxlzjcklxjzkgfdgdlcjlzxjcklsj"),
+      color: Colors.red,
+    )
     );
   }
 }
