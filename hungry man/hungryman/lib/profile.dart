@@ -1,9 +1,13 @@
 import 'dart:io';
-
+import 'package:hungryman/login.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:path/path.dart' as path;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:hungryman/cart.dart';
+import 'package:hungryman/signout.dart';
 
 class Profile extends StatefulWidget {
   // const Profile({ Key? key }) : super(key: key);
@@ -13,9 +17,53 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  String name = " loading....";
+  String firstname = " loading....";
+  String lastname = " loading....";
   String email = "loading....";
-  
+  String imagePath;
+  String downloadUrl;
+  String imageurl = "wait";
+  void pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final image = await _picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      imagePath = image.path;
+    });
+    print(image.path);
+  }
+
+  void submit() async {
+    pickImage();
+    try {
+      // firebase_storage.FirebaseStorage storage =
+      //     firebase_storage.FirebaseStorage.instance;
+      String imageName = path.basename(imagePath);
+      firebase_storage.Reference ref =
+          firebase_storage.FirebaseStorage.instance.ref('/$imageName');
+
+      File file = File(imagePath);
+      await ref.putFile(file);
+      downloadUrl = await ref.getDownloadURL();
+      FirebaseFirestore db = FirebaseFirestore.instance;
+      User user = FirebaseAuth.instance.currentUser;
+      await db.collection("users").doc(user.uid).update({
+        "url": downloadUrl,
+      });
+      print("upload successfully");
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void signout() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      print("object");
+    } catch (e) {
+      print(e.message);
+    }
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+  }
 
   void getData() async {
     User user = await FirebaseAuth.instance.currentUser;
@@ -24,8 +72,10 @@ class _ProfileState extends State<Profile> {
         .doc(user.uid)
         .get();
     setState(() {
-      name = data.data()['first_name'];
+      firstname = data.data()['first_name'];
+      lastname = data.data()['last_name'];
       email = data.data()['email'];
+      imageurl = data.data()['url'];
     });
   }
 
@@ -36,75 +86,209 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-                width: 500,
-                height: 200.0,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        colorFilter: ColorFilter.mode(
-                            Colors.black.withOpacity(0.3), BlendMode.dstATop),
-                        image: NetworkImage(
-                            "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"),
-                        fit: BoxFit.cover)),
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                    },
-                    child: 
-                        CircleAvatar(
+            Column(
+              children: [
+                Container(
+                    width: 500,
+                    height: 200.0,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 3.0,
+                          color: Colors.amber,
+                        ),
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(50.0),
+                            bottomLeft: Radius.circular(50.0)),
+                        image: DecorationImage(
+                            // colorFilter: ColorFilter.mode(
+                            //     Colors.black.withOpacity(0.8),
+                            //     BlendMode.dstATop),
+                            image: NetworkImage(
+                                "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"),
+                            fit: BoxFit.cover)),
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          submit();
+                        },
+                        child: CircleAvatar(
                           radius: 55,
                           backgroundColor: Color(0xffFDCF09),
-                          child:
-                              // _image != null
-                              // ?
-                              // ClipRRect(
-                              //     borderRadius: BorderRadius.circular(50),
-                              //     // child: Image.file(
-                              //     //   // _image,
-                              //     //   width: 100,
-                              //     //   height: 100,
-                              //     //   fit: BoxFit.fitHeight,
-                              //     // ),
-                              //   )
-                              Container(
+                          child: Container(
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Icon(
+                                Icons.camera_alt,
+                                color: Colors.grey[800],
+                              ),
+                            ),
                             decoration: BoxDecoration(
                                 color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(50)),
+                                borderRadius: BorderRadius.circular(50),
+                                image: DecorationImage(
+                                  image: NetworkImage(imageurl),
+                                  fit: BoxFit.cover,
+                                )),
                             width: 100,
                             height: 100,
-                            child: Icon(
-                              Icons.camera_alt,
-                              color: Colors.grey[800],
-                            ),
-                            
-                          
                           ),
-                          
                         ),
-                        
-                     
-                  
-                  ),
-                )
-              
-                ),
+                      ),
+                    )),
+              ],
+            ),
             Container(
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(name),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(email),
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Column(
+                  children: [
+                    //first name
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: ListTile(
+                        minLeadingWidth: 0,
+                        contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        leading: Icon(Icons.person),
+                        title: Text(
+                          "First_Name:",
+                          style: TextStyle(fontSize: 15, color: Colors.grey),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        firstname,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      thickness: 2,
+                    ),
+                    // lastname
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: ListTile(
+                        minLeadingWidth: 0,
+                        contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        leading: Icon(Icons.person),
+                        title: Text(
+                          "Last_Name:",
+                          style: TextStyle(fontSize: 15, color: Colors.grey),
+                        ),
+                      ),
+                    ),
+
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        lastname,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      thickness: 2,
+                    ),
+                    //email
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: ListTile(
+                        minLeadingWidth: 0,
+                        contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        leading: Icon(Icons.email),
+                        title: Text(
+                          "Email Address:",
+                          style: TextStyle(fontSize: 15, color: Colors.grey),
+                        ),
+                      ),
+                    ),
+
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        email,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      thickness: 2,
+                    ),
+                    // help
+                    Container(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Cart()));
+                        },
+                        child: ListTile(
+                          minLeadingWidth: 0,
+                          contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          leading: Icon(Icons.help),
+                          title: Text(
+                            "Help",
+                            style: TextStyle(fontSize: 15, color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    ),
+                    //Faq
+
+                    Container(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Cart()));
+                        },
+                        child: ListTile(
+                          minLeadingWidth: 0,
+                          contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          leading: Icon(Icons.people),
+                          title: Text(
+                            "About us",
+                            style: TextStyle(fontSize: 15, color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    ),
+                    // signout
+                    Container(
+                      child: GestureDetector(
+                        onTap: () {
+                          signout();
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (context) =>
+                          //     Signout()
+                          //     ));
+                        },
+                        child: ListTile(
+                          minLeadingWidth: 0,
+                          contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          leading: Icon(Icons.logout),
+                          title: Text(
+                            "Sign out",
+                            style: TextStyle(fontSize: 15, color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ],

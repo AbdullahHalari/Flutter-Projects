@@ -3,6 +3,7 @@ import 'package:bottom_bars/bottom_bars.dart';
 import 'package:hungryman/home.dart';
 // import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hungryman/profile.dart';
+import 'package:hungryman/cart.dart';
 
 
 class Bottombar extends StatefulWidget {

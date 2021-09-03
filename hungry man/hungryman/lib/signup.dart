@@ -19,6 +19,8 @@ class _SignupState extends State<Signup> {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController cpasswordController = TextEditingController();
+    final TextEditingController urlcontroller = TextEditingController();
+
     void register() async {
       FirebaseAuth auth = FirebaseAuth.instance;
       FirebaseFirestore db = FirebaseFirestore.instance;
@@ -27,6 +29,7 @@ class _SignupState extends State<Signup> {
       final String email = emailController.text;
       final String password = passwordController.text;
       final String cpassword = cpasswordController.text;
+      final String url = urlcontroller.text;
       try {
         final UserCredential user = await auth.createUserWithEmailAndPassword(
             email: email, password: password);
@@ -36,11 +39,14 @@ class _SignupState extends State<Signup> {
           "last_name": lname,
           "password": password,
           "confirm_password": cpassword,
+          "url": url,
         });
         print("user is registerd");
       } catch (e) {
         print(e);
       }
+      Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Login()));
     }
 
     return Scaffold(
@@ -160,7 +166,7 @@ class _SignupState extends State<Signup> {
                               borderSide: BorderSide(color: Colors.amber[800])),
                           hoverColor: Colors.amber[800],
                           labelStyle: TextStyle(color: Colors.white),
-                          labelText: 'Password',
+                          labelText: 'Password (at least 6 char)',
                           fillColor: Color.fromRGBO(255, 255, 255, 0.2),
                           filled: true,
                         ),
@@ -192,7 +198,7 @@ class _SignupState extends State<Signup> {
                               borderSide: BorderSide(color: Colors.amber[800])),
                           hoverColor: Colors.amber[800],
                           labelStyle: TextStyle(color: Colors.white),
-                          labelText: 'Confirm Password',
+                          labelText: 'Confirm Password (at least 6 char)',
                           fillColor: Color.fromRGBO(255, 255, 255, 0.2),
                           filled: true,
                         ),
