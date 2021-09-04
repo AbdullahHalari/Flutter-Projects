@@ -17,8 +17,8 @@ class _HomeState extends State<Home> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40.0),
         child: AppBar(
-          title: Center(child: Text("HUNGRY MAN 😛😋")),
-          backgroundColor: Colors.amber[800],
+          title: Center(child: Text("😋HUNGRY MAN😛")),
+          backgroundColor: Colors.black,
           leading: IconButton(
             onPressed: () {},
             icon: Icon(Icons.close),
@@ -60,6 +60,7 @@ class _HomeState extends State<Home> {
                 child: CarouselSlider(
               options: CarouselOptions(
                 height: 150.0,
+                
                 aspectRatio: 16 / 9,
                 viewportFraction: 0.8,
                 // initialPage: 0,
@@ -79,22 +80,23 @@ class _HomeState extends State<Home> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            image: AssetImage("images/bg2.png"),
-                            fit: BoxFit.cover))),
+                            image: AssetImage("images/s1.png"),
+                            
+                            fit: BoxFit.fill))),
                 Container(
                     margin: EdgeInsets.all(5.0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            image: AssetImage("images/bg2.png"),
-                            fit: BoxFit.cover))),
+                            image: AssetImage("images/s2.png"),
+                            fit: BoxFit.fill))),
                 Container(
                     margin: EdgeInsets.all(5.0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                            image: AssetImage("images/bg1.jpg"),
-                            fit: BoxFit.cover)),
+                            image: AssetImage("images/s3.png"),
+                            fit: BoxFit.fill)),
                     child: InkWell(
                       onTap: () {
                         Navigator.push(
@@ -113,14 +115,14 @@ class _HomeState extends State<Home> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  categories(),
-                  categories(),
-                  categories(),
-                  categories(),
-                  categories(),
-                  categories(),
-                  categories(),
-                  categories(),
+                  categories("Burgers","https://images.unsplash.com/photo-1606131731446-5568d87113aa?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YnVyZ2Vyc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                  categories("Sandwich","https://images.unsplash.com/photo-1539252554453-80ab65ce3586?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c2FuZHdpY2h8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                  categories("Pizza","https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHBpenphfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                  categories("Ice cream","https://images.unsplash.com/photo-1580915411954-282cb1b0d780?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fGljZSUyMGNyZWFtfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"),
+                  categories("BBQ","https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8YmJxfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                  categories("Cofee","https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvZmZlZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                  categories("Dessert","https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGVzc2VydHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"),
+                  categories("Juices&Shakes","https://images.unsplash.com/photo-1542282910-7337bcfea235?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGp1aWNlJTIwYW5kJTIwc2hha2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
                 ],
               ),
             ),
@@ -129,8 +131,9 @@ class _HomeState extends State<Home> {
               height: 10,
               thickness: 5.0,
             ),
-            foodcard(),
-            foodcard(),
+            foodcard("Zinger Burger","crispy fried chicken fillet slathered with a special burger sauce","images/zinger.jpg"),
+            foodcard("Club Sandwich","a sandwich of three slices of bread with two layers of chicken and lettuce, tomato, and mayonnaise.","images/club.jpg"),
+            foodcard("Pepperoni Pizza", "A meaty feast of pepperoni, mozzarella cheese and tomato sauce", "images/pepperoni.jpg")
           ],
         ),
       ),
@@ -138,7 +141,7 @@ class _HomeState extends State<Home> {
   }
 }
 
-Widget foodcard() {
+Widget foodcard(String foodname,String des, String  image) {
   // food card
 
   return Container(
@@ -163,7 +166,7 @@ Widget foodcard() {
                 image: new DecorationImage(
                     fit: BoxFit.cover,
                     image: AssetImage(
-                      "images/bg2.png",
+                      image,
                     ))),
             height: 200,
             width: 400,
@@ -177,7 +180,7 @@ Widget foodcard() {
               child: Column(
                 children: [
                   Text(
-                    "Zinger Burger",
+                    foodname,
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 30,
@@ -187,7 +190,7 @@ Widget foodcard() {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Zinger Burger nksdhfdsufldsjfljsdljflsdjfl sadipoidsodadjgvfgvjhfgvjhgvj",
+                      des,
                       textAlign: TextAlign.right,
                       style: TextStyle(
                           fontSize: 10,
@@ -195,24 +198,27 @@ Widget foodcard() {
                           fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                      Text("   4.0     |     "),
-                      Icon(
-                        Icons.timer,
-                        color: Colors.amber,
-                      ),
-                      Text("  45 mins     |     "),
-                      Icon(
-                        Icons.delivery_dining,
-                        color: Colors.amber,
-                      ),
-                      Text("  50rs          ")
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(25, 0, 5, 0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
+                        Text("   4.0     |     "),
+                        Icon(
+                          Icons.timer,
+                          color: Colors.amber,
+                        ),
+                        Text("  45 mins     |     "),
+                        Icon(
+                          Icons.delivery_dining,
+                          color: Colors.amber,
+                        ),
+                        Text("  50rs          ")
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -224,7 +230,7 @@ Widget foodcard() {
   );
 }
 
-Widget categories() {
+Widget categories(String name,String image ) {
   return // categories
 
       // Container(
@@ -241,11 +247,11 @@ Widget categories() {
           decoration: new BoxDecoration(
               shape: BoxShape.circle,
               image: new DecorationImage(
-                  fit: BoxFit.fill, image: AssetImage("images/bg2.png"))),
+                  fit: BoxFit.fill, image: NetworkImage(image))),
           width: 65.0,
           height: 80.0,
         ),
-        Title(color: Colors.amber, child: Text("data")),
+        Title(color: Colors.amber, child: Text(name)),
       ],
     ),
   );

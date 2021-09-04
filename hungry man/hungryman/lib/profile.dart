@@ -7,7 +7,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hungryman/cart.dart';
-import 'package:hungryman/signout.dart';
+import 'package:hungryman/contact.dart';
+import 'package:hungryman/about.dart';
+import 'package:hungryman/help.dart';
+
 
 class Profile extends StatefulWidget {
   // const Profile({ Key? key }) : super(key: key);
@@ -107,8 +110,8 @@ class _ProfileState extends State<Profile> {
                             // colorFilter: ColorFilter.mode(
                             //     Colors.black.withOpacity(0.8),
                             //     BlendMode.dstATop),
-                            image: NetworkImage(
-                                "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"),
+                            image: AssetImage(
+                                "images/backpro.jpg"),
                             fit: BoxFit.cover)),
                     child: Center(
                       child: GestureDetector(
@@ -234,7 +237,7 @@ class _ProfileState extends State<Profile> {
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Cart()));
+                              MaterialPageRoute(builder: (context) => Help()));
                         },
                         child: ListTile(
                           minLeadingWidth: 0,
@@ -253,7 +256,7 @@ class _ProfileState extends State<Profile> {
                       child: GestureDetector(
                         onTap: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Cart()));
+                              MaterialPageRoute(builder: (context) => About()));
                         },
                         child: ListTile(
                           minLeadingWidth: 0,
@@ -261,6 +264,24 @@ class _ProfileState extends State<Profile> {
                           leading: Icon(Icons.people),
                           title: Text(
                             "About us",
+                            style: TextStyle(fontSize: 15, color: Colors.grey),
+                          ),
+                        ),
+                      ),
+                    ),
+                    //contact us
+                     Container(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Contact()));
+                        },
+                        child: ListTile(
+                          minLeadingWidth: 0,
+                          contentPadding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          leading: Icon(Icons.contact_page),
+                          title: Text(
+                            "Contact us",
                             style: TextStyle(fontSize: 15, color: Colors.grey),
                           ),
                         ),

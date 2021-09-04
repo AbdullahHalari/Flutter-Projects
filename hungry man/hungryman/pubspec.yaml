@@ -61,6 +61,21 @@ flutter:
     - images/bg1.jpg
     - images/bg3.jpg
     - images/logohm.png
+    - images/backpro.jpg
+    - images/bbq.jpg
+    - images/burger.jpg
+    - images/coffee.jpg
+    - images/desert.jpg
+    - images/icecream.jpg
+    - images/juice.jpg
+    - images/pizza.jpg
+    - images/sandwich.jpg
+    - images/club.jpg
+    - images/zinger.jpg
+    - images/pepperoni.jpg
+    - images/s1.png
+    - images/s2.png
+    - images/s3.png
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
