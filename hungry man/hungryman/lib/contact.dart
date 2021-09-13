@@ -19,30 +19,35 @@ class _ContactState extends State<Contact> {
 
   void vaildation() {
     if (email.text.isEmpty && fullname.text.isEmpty && message.text.isEmpty) {
+      // ignore: deprecated_member_use
       scaffold.currentState.showSnackBar(
         SnackBar(
           content: Text("All Fleid Is Empty"),
         ),
       );
     } else if (fullname.text.isEmpty) {
+      // ignore: deprecated_member_use
       scaffold.currentState.showSnackBar(
         SnackBar(
           content: Text("FullName Is Empty"),
         ),
       );
     } else if (email.text.isEmpty) {
+      // ignore: deprecated_member_use
       scaffold.currentState.showSnackBar(
         SnackBar(
           content: Text("Email Is Empty"),
         ),
       );
     } else if (!Contact.regExp.hasMatch(email.text)) {
+      // ignore: deprecated_member_use
       scaffold.currentState.showSnackBar(
         SnackBar(
           content: Text("Email Is Not Vaild"),
         ),
       );
     } else if (message.text.isEmpty) {
+      // ignore: deprecated_member_use
       scaffold.currentState.showSnackBar(
         SnackBar(
           content: Text("Message Is Empty"),

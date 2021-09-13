@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hungryman/services/shared_preferences_service.dart';
-import 'package:hungryman/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:hungryman/Home1post.dart';
-// import 'package:hungryman/home.dart';
-import 'package:hungryman/bottom_bar.dart';
+import 'package:demo/home_page.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -17,30 +15,58 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final storage = new FlutterSecureStorage();
+
   bool _isHidden = true;
+  bool loggedIn = false;
+  Future<Null> _function() async {
+    SharedPreferences prefs;
+    prefs = await SharedPreferences.getInstance();
+    this.setState(() {
+      if (prefs.getString("email") != null) {
+        loggedIn = true;
+      } else {
+        loggedIn = false;
+      }
+    });
+  }
+
+  Scaffold homeScaffold; /*define as required*/
+  Scaffold loginScaffold; /*define as required*/
+  void initState() {
+    super.initState();
+    this._function();
+  
+  }
   @override
   Widget build(BuildContext context) {
     void login() async {
+      SharedPreferences prefs;
+  prefs = await SharedPreferences.getInstance();
       FirebaseAuth auth = FirebaseAuth.instance;
       FirebaseFirestore db = FirebaseFirestore.instance;
       final String email = emailController.text;
       final String password = passwordController.text;
-      final PrefService _prefService = PrefService();
       try {
         final UserCredential user = await auth.signInWithEmailAndPassword(
             email: email, password: password);
+      await storage.write(key: "uid", value: user.user.uid);
         final DocumentSnapshot snapshot =
             await db.collection("user").doc(user.user.uid).get();
         snapshot.data();
-    _prefService.createCache(passwordController.text).whenComplete(() {
-                      if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-                        Navigator.push(
+this.setState(() {
+  /*
+     updating the value of loggedIn to true so it will 
+     automatically trigger the screen to display homeScaffold.
+  */
+    loggedIn = true;
+    
+  });
+        Navigator.push(
             context, MaterialPageRoute(builder: (context) => Bottombar()));
-                      }
-                    });
-        
 
         print("user is logged in");
         // final UserCredential user = await auth.createUserWithEmailAndPassword(
@@ -65,32 +91,25 @@ class _LoginState extends State<Login> {
       }
     }
 
-    return
-    WillPopScope(
-      onWillPop: () async {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Please First login to enter the app')));
-        return false;
-      }, 
-     child: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.black,
         body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("images/bg2.png"),
-              fit: BoxFit.fill,
-            ),
-          ),
+          // decoration: BoxDecoration(
+          //   image: DecorationImage(
+          //     // image: AssetImage("images/bg2.png"),
+          //     fit: BoxFit.cover,
+          //   ),
+          // ),
           child: Padding(
             padding: EdgeInsets.all(30),
             child: ListView(
               children: [
                 Container(
-                  child: Image.asset(
-                    'images/logohm.png',
-                    width: 100,
-                    height: 150,
-                  ),
+                  // child: Image.asset(
+                  //   'images/logohm.png',
+                  //   width: 100,
+                  //   height: 150,
+                  // ),
                 ),
                 Container(
                     alignment: Alignment.center,
@@ -168,35 +187,35 @@ class _LoginState extends State<Login> {
                       // },
                       child: Text("Login")),
                 ),
-                Container(
-                    // height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: Column(
-                      children: [
-                        Text(
-                          "Does not have any account?",
-                          style: TextStyle(color: Colors.amber[800]),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.amber[800],
-                                  padding: EdgeInsets.fromLTRB(100, 0, 100, 0)),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Signup()));
-                              },
-                              child: Text("Sign up")),
-                        ),
-                      ],
-                    ))
+                // Container(
+                //     // height: 50,
+                //     padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                //     child: Column(
+                //       children: [
+                //         Text(
+                //           "Does not have any account?",
+                //           style: TextStyle(color: Colors.amber[800]),
+                //         ),
+                //         Padding(
+                //           padding: const EdgeInsets.all(8.0),
+                //           child: ElevatedButton(
+                //               style: ElevatedButton.styleFrom(
+                //                   primary: Colors.amber[800],
+                //                   padding: EdgeInsets.fromLTRB(100, 0, 100, 0)),
+                //               onPressed: () {
+                //                 Navigator.push(
+                //                     context,
+                //                     MaterialPageRoute(
+                //                         builder: (context) => ()));
+                //               },
+                //               child: Text("Sign up")),
+                //         ),
+                //       ],
+                //     ))
               ],
             ),
-          ),))
-        );
+          ),
+        ));
   }
 
   void _togglePasswordView() {

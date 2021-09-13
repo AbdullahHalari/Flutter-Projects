@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "596821416550",
+    "project_id": "demohungry",
+    "storage_bucket": "demohungry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596821416550:android:329d82b0a164d8b062aba7",
+        "android_client_info": {
+          "package_name": "com.example.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596821416550-5vf7q8buvrborj9tqhgtskidjdebngo2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmK0fEhkFUtzYiFZ_ZboYu4MO-P5OVAX0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596821416550-5vf7q8buvrborj9tqhgtskidjdebngo2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

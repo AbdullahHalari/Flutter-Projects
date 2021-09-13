@@ -1,15 +1,18 @@
 import 'dart:io';
 import 'package:hungryman/login.dart';
+import 'package:hungryman/services/shared_preferences_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:path/path.dart' as path;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hungryman/cart.dart';
+// import 'package:hungryman/cart.dart';
 import 'package:hungryman/contact.dart';
 import 'package:hungryman/about.dart';
 import 'package:hungryman/help.dart';
+import 'package:hungryman/routes.dart';
+
 
 
 class Profile extends StatefulWidget {
@@ -26,6 +29,8 @@ class _ProfileState extends State<Profile> {
   String imagePath;
   String downloadUrl;
   String imageurl = "wait";
+ final PrefService _prefService = PrefService();
+
   void pickImage() async {
     final ImagePicker _picker = ImagePicker();
     final image = await _picker.getImage(source: ImageSource.gallery);
@@ -65,10 +70,15 @@ class _ProfileState extends State<Profile> {
     } catch (e) {
       print(e.message);
     }
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+    await _prefService.removeCache("password").whenComplete(() {
+    Navigator.of(context).pushNamed(LoginRoute);
+                   
+                  });
+    
   }
-
+  
   void getData() async {
+    // ignore: await_only_futures
     User user = await FirebaseAuth.instance.currentUser;
     var data = await FirebaseFirestore.instance
         .collection("users")
@@ -112,7 +122,7 @@ class _ProfileState extends State<Profile> {
                             //     BlendMode.dstATop),
                             image: AssetImage(
                                 "images/backpro.jpg"),
-                            fit: BoxFit.cover)),
+                            fit: BoxFit.fill)),
                     child: Center(
                       child: GestureDetector(
                         onTap: () {

@@ -1,7 +1,7 @@
 import 'package:demo/test.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:bottom_bars/bottom_bars.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 // class HomePage extends StatefulWidget {
 //   HomePage({Key key}) : super(key: key);
@@ -64,15 +64,18 @@ class Bottombar extends StatefulWidget {
 }
 
 class _BottombarState extends State<Bottombar> {
+  
   @override
   Widget build(BuildContext context) {
+    
     return BottomBars(
       items: [
         BottomBarsItem(
           page: Scaffold(
-            floatingActionButton: FloatingActionButton(onPressed: () {
-              Test();
-            }),
+            body: Test(),
+            // floatingActionButton: FloatingActionButton(onPressed: () {
+            //   Test();
+            // }),
           ),
           // page: Scaffold(
           //   floatingActionButton: FloatingActionButton(onPressed: () {}),

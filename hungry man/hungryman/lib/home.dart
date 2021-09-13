@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hungryman/carousel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hungryman/login.dart';
+import 'package:hungryman/categories/bbq.dart';
+import 'package:hungryman/bottomsheet.dart';
+
+// import 'package:hungryman/post.dart';
 
 // import 'package:bottom_bars/bottom_bars.dart';
 class Home extends StatefulWidget {
@@ -20,7 +25,13 @@ class _HomeState extends State<Home> {
           title: Center(child: Text("😋HUNGRY MAN😛")),
           backgroundColor: Colors.black,
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (ctx) => Home(),
+                ),
+              );
+            },
             icon: Icon(Icons.close),
           ),
         ),
@@ -34,7 +45,12 @@ class _HomeState extends State<Home> {
                 // width: 100,
                 height: 40,
                 child: TextField(
-                    onSubmitted: (submittedText) {},
+                    onTap: () {
+                      showSearch(context: context, delegate: DataSearch());
+                    },
+                    // onSubmitted: (submittedText) {
+                    //   // showSearch(context: context, delegate: DataSearch());
+                    // },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.grey[300],
@@ -60,7 +76,7 @@ class _HomeState extends State<Home> {
                 child: CarouselSlider(
               options: CarouselOptions(
                 height: 150.0,
-                
+
                 aspectRatio: 16 / 9,
                 viewportFraction: 0.8,
                 // initialPage: 0,
@@ -81,7 +97,6 @@ class _HomeState extends State<Home> {
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
                             image: AssetImage("images/s1.png"),
-                            
                             fit: BoxFit.fill))),
                 Container(
                     margin: EdgeInsets.all(5.0),
@@ -108,21 +123,76 @@ class _HomeState extends State<Home> {
               ],
             )),
 
-            
             Container(
               // margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
               height: 100.0,
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
-                  categories("Burgers","https://images.unsplash.com/photo-1606131731446-5568d87113aa?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YnVyZ2Vyc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
-                  categories("Sandwich","https://images.unsplash.com/photo-1539252554453-80ab65ce3586?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c2FuZHdpY2h8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
-                  categories("Pizza","https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHBpenphfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
-                  categories("Ice cream","https://images.unsplash.com/photo-1580915411954-282cb1b0d780?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fGljZSUyMGNyZWFtfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"),
-                  categories("BBQ","https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8YmJxfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
-                  categories("Cofee","https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvZmZlZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
-                  categories("Dessert","https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGVzc2VydHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"),
-                  categories("Juices&Shakes","https://images.unsplash.com/photo-1542282910-7337bcfea235?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGp1aWNlJTIwYW5kJTIwc2hha2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                  InkWell(
+                    child: categories("Burgers",
+                        "https://images.unsplash.com/photo-1606131731446-5568d87113aa?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YnVyZ2Vyc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Bbq()));
+                    },
+                  ),
+                  InkWell(
+                    child: categories("Sandwich",
+                        "https://images.unsplash.com/photo-1539252554453-80ab65ce3586?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c2FuZHdpY2h8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Bbq()));
+                    },
+                  ),
+                  InkWell(
+                    child: categories("Pizza",
+                        "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHBpenphfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Bbq()));
+                    },
+                  ),
+                  InkWell(
+                    child: categories("Ice cream",
+                        "https://images.unsplash.com/photo-1580915411954-282cb1b0d780?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fGljZSUyMGNyZWFtfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Bbq()));
+                    },
+                  ),
+                  InkWell(
+                    child: categories("BBQ",
+                        "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8YmJxfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Bbq()));
+                    },
+                  ),
+                  InkWell(
+                    child: categories("Coffee",
+                        "https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvZmZlZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Bbq()));
+                    },
+                  ),
+                  InkWell(
+                    child: categories("Dessert",
+                        "https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGVzc2VydHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Bbq()));
+                    },
+                  ),
+                  InkWell(
+                    child: categories("Juices&Shakes",
+                        "https://images.unsplash.com/photo-1542282910-7337bcfea235?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGp1aWNlJTIwYW5kJTIwc2hha2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Bbq()));
+                    },
+                  ),
                 ],
               ),
             ),
@@ -131,9 +201,18 @@ class _HomeState extends State<Home> {
               height: 10,
               thickness: 5.0,
             ),
-            foodcard("Zinger Burger","crispy fried chicken fillet slathered with a special burger sauce","images/zinger.jpg"),
-            foodcard("Club Sandwich","a sandwich of three slices of bread with two layers of chicken and lettuce, tomato, and mayonnaise.","images/club.jpg"),
-            foodcard("Pepperoni Pizza", "A meaty feast of pepperoni, mozzarella cheese and tomato sauce", "images/pepperoni.jpg")
+            foodcard(
+                "Zinger Burger",
+                "crispy fried chicken fillet slathered with a special burger sauce.",
+                "images/zinger.jpg"),
+            foodcard(
+                "Club Sandwich",
+                "a sandwich of three slices of bread with two layers of chicken.",
+                "images/club.jpg"),
+            foodcard(
+                "Pepperoni Pizza",
+                "A meaty feast of pepperoni, mozzarella cheese and tomato sauce.",
+                "images/pepperoni.jpg")
           ],
         ),
       ),
@@ -141,11 +220,11 @@ class _HomeState extends State<Home> {
   }
 }
 
-Widget foodcard(String foodname,String des, String  image) {
+Widget foodcard(String foodname, String des, String image) {
   // food card
 
   return Container(
-    height: 330,
+    height: 310,
     width: 400,
     child: Card(
       color: Colors.white,
@@ -170,7 +249,29 @@ Widget foodcard(String foodname,String des, String  image) {
                     ))),
             height: 200,
             width: 400,
-            // child: Text("data"),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                    decoration: new BoxDecoration(
+                        color: Colors.amber,
+                        borderRadius: new BorderRadius.circular(60)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.add_shopping_cart_sharp,
+                          size: 35,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          bottomsheet();
+                        },
+                      ),
+                    )),
+              ),
+            ),
           ),
           Container(
               child: Align(
@@ -181,9 +282,9 @@ Widget foodcard(String foodname,String des, String  image) {
                 children: [
                   Text(
                     foodname,
-                    textAlign: TextAlign.right,
+                    textAlign: TextAlign.left,
                     style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 20,
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.bold),
                   ),
@@ -216,22 +317,23 @@ Widget foodcard(String foodname,String des, String  image) {
                           Icons.delivery_dining,
                           color: Colors.amber,
                         ),
-                        Text("  50rs          ")
+                        Text("  50rs          "),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-          ))
+          )),
         ],
       ),
     ),
   );
 }
 
-Widget categories(String name,String image ) {
-  return // categories
+Widget categories(String name, String image) {
+  // categories
+  return
 
       // Container(
       //   // margin: EdgeInsets.fromLTRB(10, 10, 20, 10),
@@ -257,4 +359,87 @@ Widget categories(String name,String image ) {
   );
   //   ],
   // ));
+}
+
+class DataSearch extends SearchDelegate<String> {
+  final cities = [
+    "dfghfd",
+    "Zinger Burger",
+    "Pepperoni Pizza",
+    "hello",
+    "fgdg",
+    "Dfgdfgd",
+    "dfgfdg",
+    "tyry",
+    "yerty",
+  ];
+  final recent = [
+    "Dfgdfgd",
+    "dfgfdg",
+  ];
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            query = "";
+          })
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+        icon: AnimatedIcon(
+            icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
+        onPressed: () {
+          close(context, null);
+        });
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          foodcard(
+              "Zinger Burger",
+              "crispy fried chicken fillet slathered with a special burger sauce",
+              "images/zinger.jpg"),
+          foodcard(
+              "Pepperoni Pizza",
+              "A meaty feast of pepperoni, mozzarella cheese and tomato sauce",
+              "images/pepperoni.jpg")
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final suggest = query.isEmpty
+        ? recent
+        : cities.where((p) => p.startsWith(query)).toList();
+    return ListView.builder(
+      itemBuilder: (contex, index) => ListTile(
+        onTap: () {
+          showResults(context);
+        },
+        leading: Icon(Icons.location_city),
+        title: RichText(
+          text: TextSpan(
+              text: suggest[index].substring(0, query.length),
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              children: [
+                TextSpan(
+                    text: suggest[index].substring(query.length),
+                    style: TextStyle(color: Colors.grey))
+              ]),
+        ),
+      ),
+      itemCount: suggest.length,
+    );
+  }
 }

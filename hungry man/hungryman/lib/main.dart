@@ -4,6 +4,8 @@ import 'package:hungryman/login.dart';
 import 'package:hungryman/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
+// import 'package:hungryman/splash_view.dart';
+import 'package:hungryman/routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
+    
     return FutureBuilder(
       // Initialize FlutterFire:
       future: _initialization,
@@ -29,6 +32,8 @@ class MyApp extends StatelessWidget {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
+            initialRoute: SplashRoute,
+            routes: routes,
               debugShowCheckedModeBanner: false,
               title: 'HUNGRY MAN',
               home: Form());
@@ -42,7 +47,12 @@ class MyApp extends StatelessWidget {
 }
 
 class Form extends StatefulWidget {
-  // const Form({ Key? key }) : super(key: key);
+  // const Form
+  //
+  //
+  //
+  //
+  //({ Key? key }) : super(key: key);
 //
   @override
   _FormState createState() => _FormState();
@@ -60,6 +70,7 @@ class _FormState extends State<Form> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      
         body:
 
             // Image.asset('images/gwgold.png'),
@@ -67,7 +78,7 @@ class _FormState extends State<Form> {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage("images/bg2.png"),
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
         ),
       ),
       child: Padding(

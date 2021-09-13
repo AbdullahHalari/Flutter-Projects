@@ -1,4 +1,4 @@
-Flutter food delivery app theme like swiggy, zomoto, food panda, uber eats...
+Flutter food delivery app 
 
 ### Flutter Food Ordering app screens
 - Signup with email and password
