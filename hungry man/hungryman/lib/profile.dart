@@ -1,4 +1,5 @@
 import 'dart:io';
+// import 'package:hungryman/login.dart';
 import 'package:hungryman/login.dart';
 import 'package:hungryman/services/shared_preferences_service.dart';
 import 'package:image_picker/image_picker.dart';
@@ -71,7 +72,9 @@ class _ProfileState extends State<Profile> {
       print(e.message);
     }
     await _prefService.removeCache("password").whenComplete(() {
+      
     Navigator.of(context).pushNamed(LoginRoute);
+  //  Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
                    
                   });
     
@@ -301,6 +304,7 @@ class _ProfileState extends State<Profile> {
                     Container(
                       child: GestureDetector(
                         onTap: () {
+                          
                           signout();
                           // Navigator.push(context,
                           //     MaterialPageRoute(builder: (context) =>

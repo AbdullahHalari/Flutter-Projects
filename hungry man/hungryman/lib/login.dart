@@ -6,8 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:hungryman/Home1post.dart';
 // import 'package:hungryman/home.dart';
 import 'package:hungryman/bottom_bar.dart';
-
-
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 
 class Login extends StatefulWidget {
   // const Login({ Key? key }) : super(key: key);
@@ -34,13 +33,13 @@ class _LoginState extends State<Login> {
         final DocumentSnapshot snapshot =
             await db.collection("user").doc(user.user.uid).get();
         snapshot.data();
-    _prefService.createCache(passwordController.text).whenComplete(() {
-                      if (emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-                        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Bottombar()));
-                      }
-                    });
-        
+        _prefService.createCache(passwordController.text).whenComplete(() {
+          if (emailController.text.isNotEmpty &&
+              passwordController.text.isNotEmpty) {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => Bottombar()));
+          }
+        });
 
         print("user is logged in");
         // final UserCredential user = await auth.createUserWithEmailAndPassword(
@@ -63,140 +62,141 @@ class _LoginState extends State<Login> {
               );
             });
       }
+      
     }
 
-    return
-    WillPopScope(
-      onWillPop: () async {
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Please First login to enter the app')));
-        return false;
-      }, 
-     child: Scaffold(
-        backgroundColor: Colors.black,
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage("images/bg2.png"),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(30),
-            child: ListView(
-              children: [
-                Container(
-                  child: Image.asset(
-                    'images/logohm.png',
-                    width: 100,
-                    height: 150,
-                  ),
+    return WillPopScope(
+        onWillPop: () async {
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(content: Text('Please First login to enter the app')));
+          
+          return false;
+        },
+        child: 
+         Scaffold(
+            backgroundColor: Colors.black,
+            body:Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("images/bg2.png"),
+                  fit: BoxFit.fill,
                 ),
-                Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      'Welcome back!',
-                      style: TextStyle(fontSize: 30, color: Colors.white),
-                    )),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: TextField(
-                    style: TextStyle(color: Colors.amber[800]),
-                    cursorColor: Colors.red,
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.email,
-                        color: Colors.white,
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(30),
+                child: ListView(
+                  children: [
+                    Container(
+                      child: Image.asset(
+                        'images/logohm.png',
+                        width: 100,
+                        height: 150,
                       ),
-                      border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.amber[800])),
-                      fillColor: Color.fromRGBO(255, 255, 255, 0.2),
-                      filled: true,
-                      // fillColor: Colors.white,
-                      hoverColor: Colors.amber[800],
-                      labelStyle: TextStyle(color: Colors.white),
+                    ),
+                    Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          'Welcome back!',
+                          style: TextStyle(fontSize: 30, color: Colors.white),
+                        )),
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: TextField(
+                        style: TextStyle(color: Colors.amber[800]),
+                        cursorColor: Colors.red,
+                        controller: emailController,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.email,
+                            color: Colors.white,
+                          ),
+                          border: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.amber[800])),
+                          fillColor: Color.fromRGBO(255, 255, 255, 0.2),
+                          filled: true,
+                          // fillColor: Colors.white,
+                          hoverColor: Colors.amber[800],
+                          labelStyle: TextStyle(color: Colors.white),
 
-                      labelText: 'Email',
+                          labelText: 'Email',
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: TextField(
-                    style: TextStyle(color: Colors.blue),
-                    cursorColor: Colors.red,
-                    controller: passwordController,
-                    obscureText: _isHidden,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.vpn_key,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(),
-                      suffix: InkWell(
-                        onTap: _togglePasswordView,
-                        child: Icon(
-                          _isHidden ? Icons.visibility : Icons.visibility_off,
-                          color: Colors.white,
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: TextField(
+                        style: TextStyle(color: Colors.blue),
+                        cursorColor: Colors.red,
+                        controller: passwordController,
+                        obscureText: _isHidden,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.vpn_key,
+                            color: Colors.white,
+                          ),
+                          border: OutlineInputBorder(),
+                          suffix: InkWell(
+                            onTap: _togglePasswordView,
+                            child: Icon(
+                              _isHidden
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.white,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.amber[800])),
+                          hoverColor: Colors.amber[800],
+                          fillColor: Color.fromRGBO(255, 255, 255, 0.2),
+                          filled: true,
+                          labelStyle: TextStyle(color: Colors.white),
+                          labelText: 'Password',
                         ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.amber[800])),
-                      hoverColor: Colors.amber[800],
-                      fillColor: Color.fromRGBO(255, 255, 255, 0.2),
-                      filled: true,
-                      labelStyle: TextStyle(color: Colors.white),
-                      labelText: 'Password',
                     ),
-                  ),
+                    Container(
+                      height: 50,
+                      padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.amber[800],
+                            // padding: EdgeInsets.fromLTRB(100, 0, 100, 0)
+                          ),
+                          onPressed: login,
+                          child: Text("Login")),
+                    ),
+                    Container(
+                        // height: 50,
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Does not have any account?",
+                              style: TextStyle(color: Colors.amber[800]),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.amber[800],
+                                      padding:
+                                          EdgeInsets.fromLTRB(100, 0, 100, 0)),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Signup()));
+                                  },
+                                  child: Text("Sign up")),
+                            ),
+                          ],
+                        ))
+                  ],
                 ),
-                Container(
-                  height: 50,
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.amber[800],
-                        // padding: EdgeInsets.fromLTRB(100, 0, 100, 0)
-                      ),
-                      onPressed: login,
-                      // () {
-                      //   print(emailController.text);
-                      //   print(passwordController);
-                      // },
-                      child: Text("Login")),
-                ),
-                Container(
-                    // height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: Column(
-                      children: [
-                        Text(
-                          "Does not have any account?",
-                          style: TextStyle(color: Colors.amber[800]),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.amber[800],
-                                  padding: EdgeInsets.fromLTRB(100, 0, 100, 0)),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Signup()));
-                              },
-                              child: Text("Sign up")),
-                        ),
-                      ],
-                    ))
-              ],
-            ),
-          ),))
-        );
+              ),)
+            ));
   }
 
   void _togglePasswordView() {

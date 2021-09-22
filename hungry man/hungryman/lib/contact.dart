@@ -64,7 +64,7 @@ class _ContactState extends State<Contact> {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(
-            Icons.arrow_back,
+            Icons.close,
             color: Colors.black,
             size: 30,
           ),

@@ -3,7 +3,7 @@
 // import 'package:sharedpreftutorial/views/splash_view.dart';
 import 'package:hungryman/bottom_bar.dart';
 import 'package:hungryman/login.dart';
-import 'package:hungryman/home.dart';
+// import 'package:hungryman/home.dart';
 import 'package:hungryman/splash_view.dart';
 import 'package:hungryman/main.dart';
 

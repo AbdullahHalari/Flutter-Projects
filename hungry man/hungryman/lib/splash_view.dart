@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hungryman/services/shared_preferences_service.dart';
 import 'package:hungryman/routes.dart';
-import 'package:hungryman/main.dart';
+// import 'package:hungryman/main.dart';
 
 
 class SplashView extends StatefulWidget {

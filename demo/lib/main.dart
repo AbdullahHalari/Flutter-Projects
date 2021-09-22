@@ -1,9 +1,10 @@
 import 'package:demo/login.dart';
+import 'package:demo/provider/my_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-// import 'home_page.dart';
-// import 'package:demo/home_page.dart';
+import 'package:provider/provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +27,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MyProvider()),
+      ],
+      child: MaterialApp(
       title: 'Custom Loading Animation Example',
       theme: new ThemeData(
         primaryColor: const Color(0xFF43a047),
@@ -51,7 +56,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             home: Login(),
           );
-        })
+        }))
     );
   }
 }

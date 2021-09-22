@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 // import 'package:hungryman/Home1.dart';
 import 'package:hungryman/login.dart';
+import 'package:hungryman/provider/my_provider.dart';
 import 'package:hungryman/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
 // import 'package:hungryman/splash_view.dart';
 import 'package:hungryman/routes.dart';
+import 'package:provider/provider.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +21,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    return FutureBuilder(
+     return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MyProvider()),
+      ], 
+    child: FutureBuilder(
       // Initialize FlutterFire:
       future: _initialization,
       builder: (context, snapshot) {
@@ -42,7 +49,7 @@ class MyApp extends StatelessWidget {
         // Otherwise, show something whilst waiting for initialization to complete
         return Container();
       },
-    );
+     ));
   }
 }
 

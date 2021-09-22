@@ -20,7 +20,13 @@ class _BottombarState extends State<Bottombar> {
   @override
   Widget build(BuildContext context) {
     
-    return BottomBars(
+     return WillPopScope(
+        onWillPop: () async {
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(content: Text('Please First login to enter the app')));
+          return false;
+        },
+        child: BottomBars(
       
       items: [
         BottomBarsItem(
@@ -79,7 +85,7 @@ class _BottombarState extends State<Bottombar> {
           
         // ),
         
-      ],
+      ],),
     );
     
   

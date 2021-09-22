@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hungryman/carousel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:hungryman/login.dart';
 import 'package:hungryman/categories/bbq.dart';
-import 'package:hungryman/bottomsheet.dart';
+import 'package:hungryman/categories/pizza.dart';
+import 'package:hungryman/categories/burger.dart';
+import 'package:hungryman/categories/coffee.dart';
+import 'package:hungryman/categories/dessert.dart';
+import 'package:hungryman/categories/icecream.dart';
+import 'package:hungryman/categories/juices.dart';
+import 'package:hungryman/categories/sandwich.dart';
 
-// import 'package:hungryman/post.dart';
 
-// import 'package:bottom_bars/bottom_bars.dart';
 class Home extends StatefulWidget {
   // const Home({ Key? key }) : super(key: key);
 
@@ -16,24 +19,34 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    
+     return WillPopScope(
+        onWillPop: () async {
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(content: Text('Please First login to enter the app')));
+          return false;
+        },
+        child: Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(40.0),
         child: AppBar(
           title: Center(child: Text("😋HUNGRY MAN😛")),
+          automaticallyImplyLeading: false,
+
           backgroundColor: Colors.black,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (ctx) => Home(),
-                ),
-              );
-            },
-            icon: Icon(Icons.close),
-          ),
+          // leading: IconButton(
+          //   onPressed: () {
+          //     Navigator.of(context).pushReplacement(
+          //       MaterialPageRoute(
+          //         builder: (ctx) => Home(),
+          //       ),
+          //     );
+          //   },
+          //   icon: Icon(Icons.close),
+          // ),
         ),
       ),
       body: SingleChildScrollView(
@@ -46,7 +59,7 @@ class _HomeState extends State<Home> {
                 height: 40,
                 child: TextField(
                     onTap: () {
-                      showSearch(context: context, delegate: DataSearch());
+                      // showSearch(context: context, delegate: DataSearch());
                     },
                     // onSubmitted: (submittedText) {
                     //   // showSearch(context: context, delegate: DataSearch());
@@ -134,7 +147,7 @@ class _HomeState extends State<Home> {
                         "https://images.unsplash.com/photo-1606131731446-5568d87113aa?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8YnVyZ2Vyc3xlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Bbq()));
+                          MaterialPageRoute(builder: (context) => Burgeritems()));
                     },
                   ),
                   InkWell(
@@ -142,7 +155,7 @@ class _HomeState extends State<Home> {
                         "https://images.unsplash.com/photo-1539252554453-80ab65ce3586?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c2FuZHdpY2h8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Bbq()));
+                          MaterialPageRoute(builder: (context) =>  Sandwichitems()));
                     },
                   ),
                   InkWell(
@@ -150,7 +163,7 @@ class _HomeState extends State<Home> {
                         "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fHBpenphfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Bbq()));
+                          MaterialPageRoute(builder: (context) => Pizzaitems()));
                     },
                   ),
                   InkWell(
@@ -158,7 +171,7 @@ class _HomeState extends State<Home> {
                         "https://images.unsplash.com/photo-1580915411954-282cb1b0d780?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fGljZSUyMGNyZWFtfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Bbq()));
+                          MaterialPageRoute(builder: (context) =>  Icecreamitems()));
                     },
                   ),
                   InkWell(
@@ -166,7 +179,7 @@ class _HomeState extends State<Home> {
                         "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8YmJxfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Bbq()));
+                          MaterialPageRoute(builder: (context) =>  Bbqitems()));
                     },
                   ),
                   InkWell(
@@ -174,7 +187,7 @@ class _HomeState extends State<Home> {
                         "https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvZmZlZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Bbq()));
+                          MaterialPageRoute(builder: (context) =>  Coffeeitems()));
                     },
                   ),
                   InkWell(
@@ -182,7 +195,7 @@ class _HomeState extends State<Home> {
                         "https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZGVzc2VydHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Bbq()));
+                          MaterialPageRoute(builder: (context) =>  Dessertitems()));
                     },
                   ),
                   InkWell(
@@ -190,7 +203,7 @@ class _HomeState extends State<Home> {
                         "https://images.unsplash.com/photo-1542282910-7337bcfea235?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGp1aWNlJTIwYW5kJTIwc2hha2VzfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Bbq()));
+                          MaterialPageRoute(builder: (context) =>  Juiceitems()));
                     },
                   ),
                 ],
@@ -215,9 +228,63 @@ class _HomeState extends State<Home> {
                 "images/pepperoni.jpg")
           ],
         ),
-      ),
+      ),),
     );
   }
+
+  Widget categoriesContainer(
+      {@required Function onTap,
+      @required String image,
+      @required String name}) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            margin: EdgeInsets.only(left: 20),
+            height: 80,
+            width: 80,
+            decoration: BoxDecoration(
+              image: DecorationImage(image: NetworkImage(image)),
+              color: Colors.grey,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          name,
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        )
+      ],
+    );
+  }
+
+  // Widget pizza() {
+  //   return Row(
+  //     children: pizzaList
+  //         .map(
+  //           (e) => categoriesContainer(
+  //             image: e.image,
+  //             name: e.name,
+  //             onTap: () {
+  //               Navigator.of(context).pushReplacement(
+  //                 MaterialPageRoute(
+  //                   builder: (context) => Categories(list: pizzaCategoriesList),
+  //                 ),
+  //               );
+  //             },
+  //           ),
+  //         )
+  //         .toList(),
+  //   );
+  // }
+ 
 }
 
 Widget foodcard(String foodname, String des, String image) {
@@ -266,7 +333,7 @@ Widget foodcard(String foodname, String des, String image) {
                           color: Colors.black,
                         ),
                         onPressed: () {
-                          bottomsheet();
+                          // bottomsheet();
                         },
                       ),
                     )),
@@ -361,85 +428,85 @@ Widget categories(String name, String image) {
   // ));
 }
 
-class DataSearch extends SearchDelegate<String> {
-  final cities = [
-    "dfghfd",
-    "Zinger Burger",
-    "Pepperoni Pizza",
-    "hello",
-    "fgdg",
-    "Dfgdfgd",
-    "dfgfdg",
-    "tyry",
-    "yerty",
-  ];
-  final recent = [
-    "Dfgdfgd",
-    "dfgfdg",
-  ];
-  @override
-  List<Widget> buildActions(BuildContext context) {
-    return [
-      IconButton(
-          icon: Icon(Icons.clear),
-          onPressed: () {
-            query = "";
-          })
-    ];
-  }
+// class DataSearch extends SearchDelegate<String> {
+//   final cities = [
+//     "dfghfd",
+//     "Zinger Burger",
+//     "Pepperoni Pizza",
+//     "hello",
+//     "fgdg",
+//     "Dfgdfgd",
+//     "dfgfdg",
+//     "tyry",
+//     "yerty",
+//   ];
+//   final recent = [
+//     "Dfgdfgd",
+//     "dfgfdg",
+//   ];
+//   @override
+//   List<Widget> buildActions(BuildContext context) {
+//     return [
+//       IconButton(
+//           icon: Icon(Icons.clear),
+//           onPressed: () {
+//             query = "";
+//           })
+//     ];
+//   }
 
-  @override
-  Widget buildLeading(BuildContext context) {
-    return IconButton(
-        icon: AnimatedIcon(
-            icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
-        onPressed: () {
-          close(context, null);
-        });
-  }
+//   @override
+//   Widget buildLeading(BuildContext context) {
+//     return IconButton(
+//         icon: AnimatedIcon(
+//             icon: AnimatedIcons.menu_arrow, progress: transitionAnimation),
+//         onPressed: () {
+//           close(context, null);
+//         });
+//   }
 
-  @override
-  Widget buildResults(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          foodcard(
-              "Zinger Burger",
-              "crispy fried chicken fillet slathered with a special burger sauce",
-              "images/zinger.jpg"),
-          foodcard(
-              "Pepperoni Pizza",
-              "A meaty feast of pepperoni, mozzarella cheese and tomato sauce",
-              "images/pepperoni.jpg")
-        ],
-      ),
-    );
-  }
+//   @override
+//   Widget buildResults(BuildContext context) {
+//     return Container(
+//       child: Column(
+//         children: [
+//           foodcard(
+//               "Zinger Burger",
+//               "crispy fried chicken fillet slathered with a special burger sauce",
+//               "images/zinger.jpg"),
+//           foodcard(
+//               "Pepperoni Pizza",
+//               "A meaty feast of pepperoni, mozzarella cheese and tomato sauce",
+//               "images/pepperoni.jpg")
+//         ],
+//       ),
+//     );
+//   }
 
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    final suggest = query.isEmpty
-        ? recent
-        : cities.where((p) => p.startsWith(query)).toList();
-    return ListView.builder(
-      itemBuilder: (contex, index) => ListTile(
-        onTap: () {
-          showResults(context);
-        },
-        leading: Icon(Icons.location_city),
-        title: RichText(
-          text: TextSpan(
-              text: suggest[index].substring(0, query.length),
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-              children: [
-                TextSpan(
-                    text: suggest[index].substring(query.length),
-                    style: TextStyle(color: Colors.grey))
-              ]),
-        ),
-      ),
-      itemCount: suggest.length,
-    );
-  }
-}
+//   @override
+//   Widget buildSuggestions(BuildContext context) {
+//     final suggest = query.isEmpty
+//         ? recent
+//         : cities.where((p) => p.startsWith(query)).toList();
+//     return ListView.builder(
+//       itemBuilder: (contex, index) => ListTile(
+//         onTap: () {
+//           showResults(context);
+//         },
+//         leading: Icon(Icons.location_city),
+//         title: RichText(
+//           text: TextSpan(
+//               text: suggest[index].substring(0, query.length),
+//               style:
+//                   TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+//               children: [
+//                 TextSpan(
+//                     text: suggest[index].substring(query.length),
+//                     style: TextStyle(color: Colors.grey))
+//               ]),
+//         ),
+//       ),
+//       itemCount: suggest.length,
+//     );
+//   }
+// }
