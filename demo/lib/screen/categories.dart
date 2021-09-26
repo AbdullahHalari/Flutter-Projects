@@ -1,4 +1,4 @@
-import 'package:demo/modles/food_categories_modle.dart';
+import 'package:demo/models/food_categories_modle.dart';
 import 'package:demo/screen/widget/bottom_Contianer.dart';
 import 'package:flutter/material.dart';
 import 'package:demo/home_page.dart';
@@ -6,7 +6,7 @@ import 'package:demo/home_page.dart';
 class Categories extends StatelessWidget {
 
   List<FoodCategoriesModle> list = []; 
-  Categories({@required this.list});
+  Categories({required this.list});
   
   @override
   Widget build(BuildContext context) {

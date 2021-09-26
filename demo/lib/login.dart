@@ -34,8 +34,8 @@ class _LoginState extends State<Login> {
     });
   }
 
-  Scaffold homeScaffold; /*define as required*/
-  Scaffold loginScaffold; /*define as required*/
+  late Scaffold homeScaffold; /*define as required*/
+  late Scaffold loginScaffold; /*define as required*/
   void initState() {
     super.initState();
     this._function();
@@ -85,7 +85,7 @@ this.setState(() {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                content: Text(e.message),
+                content: Text(e.toString()),
               );
             });
       }
@@ -130,8 +130,8 @@ this.setState(() {
                         color: Colors.white,
                       ),
                       border: OutlineInputBorder(),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.amber[800])),
+                      // focusedBorder: OutlineInputBorder(
+                      //     borderSide: BorderSide(color: Colors.amber[800])),
                       fillColor: Color.fromRGBO(255, 255, 255, 0.2),
                       filled: true,
                       // fillColor: Colors.white,
@@ -163,7 +163,7 @@ this.setState(() {
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.amber[800])),
+                          borderSide: BorderSide(color: (Colors.amber[800])!)),
                       hoverColor: Colors.amber[800],
                       fillColor: Color.fromRGBO(255, 255, 255, 0.2),
                       filled: true,

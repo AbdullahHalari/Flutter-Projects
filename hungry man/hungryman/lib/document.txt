@@ -8,7 +8,7 @@ Flutter food delivery app
 - Home screen promo Image display
 - Location Picker
 - GPS picker for current location
-- details page
+- details page(bottom sheet)
 - Menu category
 - Grid view based menu
 - Search 
@@ -20,6 +20,5 @@ Flutter food delivery app
 - Manage orders
 - View Orders in listview
 - View detailed order information
-- Payments page for wallet integration
 - Help
 - Logout

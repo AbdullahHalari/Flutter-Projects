@@ -1,10 +1,11 @@
-import 'package:demo/modles/food_categories_modle.dart';
+import 'package:demo/models/food_categories_modle.dart';
 import 'package:demo/provider/my_provider.dart';
 import 'package:demo/screen/categories.dart';
 import 'package:demo/test.dart';
 import 'package:flutter/material.dart';
 import 'package:bottom_bars/bottom_bars.dart';
 import 'package:provider/provider.dart';
+import 'package:demo/cart.dart';
 
 
 class Bottombar extends StatefulWidget {
@@ -34,10 +35,9 @@ class _BottombarState extends State<Bottombar> {
         ),
         BottomBarsItem(
           page: Scaffold(
-            floatingActionButton: FloatingActionButton(onPressed: () {
-              Test();
-            }),
-          ),
+           body: Cart()
+            ),
+          
 
           item: Item(
             icon: Icons.ac_unit_outlined,
@@ -47,7 +47,7 @@ class _BottombarState extends State<Bottombar> {
         BottomBarsItem(
           page: Scaffold(
             floatingActionButton: FloatingActionButton(onPressed: () {
-              Test();
+              // Test();
             }),
           ),
           item: Item(
@@ -59,7 +59,7 @@ class _BottombarState extends State<Bottombar> {
         BottomBarsItem(
           page: Scaffold(
             floatingActionButton: FloatingActionButton(onPressed: () {
-              Test();
+              // Test();
             }),
           ),
           item: Item(

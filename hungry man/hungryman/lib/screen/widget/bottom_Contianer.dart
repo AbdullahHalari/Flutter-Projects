@@ -1,5 +1,7 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BottomContainer extends StatefulWidget {
   final String image;
@@ -16,6 +18,22 @@ class BottomContainer extends StatefulWidget {
 class _BottomContainerState extends State<BottomContainer> {
   @override
   Widget build(BuildContext context) {
+    Future addToCart() async {
+      final FirebaseAuth _auth = FirebaseAuth.instance;
+      var currentUser = _auth.currentUser;
+      CollectionReference _collectionRef =
+          FirebaseFirestore.instance.collection("users-cart-items");
+      return _collectionRef
+          .doc(currentUser.email)
+          .collection("items")
+          .doc()
+          .set({
+        "name": widget.name,
+        "price": widget.price,
+        "images": widget.image,
+      }).then((value) => Fluttertoast.showToast(msg: "item added"));
+    }
+
     return GestureDetector(
         child: Column(
       children: [
@@ -87,91 +105,95 @@ class _BottomContainerState extends State<BottomContainer> {
                         isScrollControlled: true,
                         enableDrag: true,
                         builder: (context) {
-                          return Wrap(
-                        children: [ Card(
-                          
-                            color: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(30),
-                                  topLeft:
-                                      Radius.circular(30)), // if you need this
-                              // side: BorderSide(
-                              //   color: Colors.orange,
-                              //   width: 2,
-                              // ),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Container(
-                                    height: 170,
-                                    width: 400,
-                                    child: Container(
-                                      decoration: new BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            topRight: Radius.circular(30),
-                                            topLeft: Radius.circular(30)),
-                                        image: new DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: NetworkImage(
-                                              widget.image,
-                                            )),
+                          return Wrap(children: [
+                            Card(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(30),
+                                    topLeft: Radius.circular(
+                                        30)), // if you need this
+                                // side: BorderSide(
+                                //   color: Colors.orange,
+                                //   width: 2,
+                                // ),
+                              ),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Container(
+                                      height: 170,
+                                      width: 400,
+                                      child: Container(
+                                        decoration: new BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                              topRight: Radius.circular(30),
+                                              topLeft: Radius.circular(30)),
+                                          image: new DecorationImage(
+                                              fit: BoxFit.fill,
+                                              image: NetworkImage(
+                                                widget.image,
+                                              )),
+                                        ),
+                                      )),
+                                  counter(),
+                                  Container(
+                                    child: Text(
+                                      widget.name,
+                                      style: TextStyle(
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 300,
+                                    child: Text(
+                                      "shfdysi[preelvkgdyteqtweoqwriposfcvcgr78[yofldnvsfdytwreow;fjsdkjtr8ry[ptkglvjfgorey;g",
+                                      style: TextStyle(
+                                        fontSize: 15,
                                       ),
-                                    )),
-                               counter(),
-                               Container(
-                                 child: Text(widget.name,
-                                 style: TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
-                      ),
-                               ),
-                               Container(
-                                 width: 300,
-                                 child: Text("shfdysi[preelvkgdyteqtweoqwriposfcvcgr78[yofldnvsfdytwreow;fjsdkjtr8ry[ptkglvjfgorey;g",
-                                 style: TextStyle(
-                            fontSize: 15, ),
-                      ),
-                               ),
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(110, 10, 70, 10),
-                          child: Row(
-                            children: [
-                               Icon(
-                            Icons.delivery_dining,
-                            color: Colors.amber,
-                          ),
-                          Text(" pkr 50"),
-                          SizedBox(
-                            width: 10,
-                          ),
-                            Icon(
-                            Icons.timer,
-                            color: Colors.amber,
-                          ),
-                          Text(" 45 mins"),
-                            ],
-                          ),
-                        )
-                      ),
-                      ElevatedButton(
-                         style: ElevatedButton.styleFrom(
-                            shape: new RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(30.0),
-                            
-                            ),
-                            primary: Colors.amber,
-                            padding: EdgeInsets.fromLTRB(100, 10, 100, 10)
-                          ),
-                        onPressed: (){}, child: Text("ADD TO BASKET")
-                        
-                        )
-
-
-                              ],
-                            ),
-                          )]);
+                                    ),
+                                  ),
+                                  Container(
+                                      child: Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        110, 10, 70, 10),
+                                    child: Row(
+                                      children: [
+                                        Icon(
+                                          Icons.delivery_dining,
+                                          color: Colors.amber,
+                                        ),
+                                        Text(" pkr 50"),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Icon(
+                                          Icons.timer,
+                                          color: Colors.amber,
+                                        ),
+                                        Text(" 45 mins"),
+                                      ],
+                                    ),
+                                  )),
+                                  ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          shape: new RoundedRectangleBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(30.0),
+                                          ),
+                                          primary: Colors.amber,
+                                          padding: EdgeInsets.fromLTRB(
+                                              100, 10, 100, 10)),
+                                      onPressed: () {
+                                        addToCart();
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("ADD TO BASKET"))
+                                ],
+                              ),
+                            )
+                          ]);
                         });
 
                     print("add to cart");

@@ -3,7 +3,7 @@ import 'package:bottom_bars/bottom_bars.dart';
 import 'package:hungryman/home.dart';
 // import 'package:carousel_slider/carousel_slider.dart';
 import 'package:hungryman/profile.dart';
-// import 'package:hungryman/cart.dart';
+import 'package:hungryman/cart.dart';
 
 
 class Bottombar extends StatefulWidget {
@@ -51,7 +51,7 @@ class _BottombarState extends State<Bottombar> {
         ),
         BottomBarsItem(
           page: Scaffold(
-           
+           body: Cart(),
           ),
           
 

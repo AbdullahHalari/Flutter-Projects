@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   Future<bool> checklogin() async {
-    String value = await storage.read(key: "uid");
+    String? value = await storage.read(key: "uid");
     if (value == null) {
       return false;
     }
