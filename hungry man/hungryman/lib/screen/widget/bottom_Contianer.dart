@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hungryman/bottom_bar.dart';
 
 class BottomContainer extends StatefulWidget {
   final String image;
@@ -136,7 +137,7 @@ class _BottomContainerState extends State<BottomContainer> {
                                               )),
                                         ),
                                       )),
-                                  counter(),
+                                  // counter(),
                                   Container(
                                     child: Text(
                                       widget.name,
@@ -157,9 +158,21 @@ class _BottomContainerState extends State<BottomContainer> {
                                   Container(
                                       child: Padding(
                                     padding: const EdgeInsets.fromLTRB(
-                                        110, 10, 70, 10),
+                                        50, 10, 10, 10),
                                     child: Row(
                                       children: [
+                                        Icon(
+                                          Icons.attach_money,
+                                          // IconData(60383,
+                                          //     fontFamily: 'MaterialIcons'),
+                                          color: Colors.amber,
+                                        ),
+                                        Text(
+                                          "PKR  ${widget.price}",
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
                                         Icon(
                                           Icons.delivery_dining,
                                           color: Colors.amber,
@@ -200,68 +213,71 @@ class _BottomContainerState extends State<BottomContainer> {
                   },
                 )),
               ),
+              
             ],
           ),
         ),
         Divider(
           height: 10,
           thickness: 2,
-        )
-      ],
-    ));
-  }
-}
-
-class counter extends StatefulWidget {
-  // const counter({ Key? key }) : super(key: key);
-
-  @override
-  _counterState createState() => _counterState();
-}
-
-class _counterState extends State<counter> {
-  int _n = 0;
-  void add() {
-    setState(() {
-      _n++;
-    });
-  }
-
-  void minus() {
-    if (_n != 0)
-      setState(() {
-        _n--;
-      });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Container(
-        width: 200,
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              FloatingActionButton(
-                onPressed: add,
-                child: Icon(
-                  Icons.add,
-                  color: Colors.black,
-                ),
-                backgroundColor: Colors.amber,
-              ),
-              Text('$_n', style: TextStyle(fontSize: 40.0)),
-              FloatingActionButton(
-                onPressed: minus,
-                child: new Icon(Icons.remove, color: Colors.black),
-                backgroundColor: Colors.amber,
-              ),
-            ],
-          ),
         ),
-      ),
-    );
+        
+      ],
+    
+    ));
+    
   }
 }
+
+// class counter extends StatefulWidget {
+
+//   const counter({ Key key }) : super(key: key);
+
+//   @override
+//   _counterState createState() => _counterState();
+// }
+
+// class _counterState extends State<counter> {
+//   int _n = 0;
+  
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(12.0),
+//       child: Container(
+//         width: 200,
+//         child: Center(
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//             children: <Widget>[
+//               FloatingActionButton(
+//                 onPressed: (){
+//                   setState(() {
+//                 _n++;
+//               });
+//                 },
+//                 child: Icon(
+//                   Icons.add,
+//                   color: Colors.black,
+//                 ),
+//                 backgroundColor: Colors.amber,
+//               ),
+//               Text('$_n', style: TextStyle(fontSize: 40.0)),
+//               FloatingActionButton(
+//                 onPressed: (){
+//                   if (_n != 0)
+//                     setState(() {
+//                       _n--;
+//                     });
+//                 },
+//                 child: new Icon(Icons.remove, color: Colors.black),
+//                 backgroundColor: Colors.amber,
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

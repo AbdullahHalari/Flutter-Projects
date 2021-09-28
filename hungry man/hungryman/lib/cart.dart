@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hungryman/screen/widget/bottom_Contianer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +15,7 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   String collectionName = "users-cart-items";
+  double total = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,6 +110,9 @@ class _CartState extends State<Cart> {
                                           color: Colors.red),
                                     ),
                                   ),
+                                  // Container(
+                                  //   child:counter().
+                                  // )
                                 ],
                               ),
                             ),
@@ -124,6 +130,7 @@ class _CartState extends State<Cart> {
                                 alignment: Alignment(20, 0),
                                 onPressed: () {
                                   deleteitem();
+
                                   Fluttertoast.showToast(msg: "item removed");
                                 },
                               )),
@@ -134,13 +141,63 @@ class _CartState extends State<Cart> {
                       Divider(
                         height: 10,
                         thickness: 2,
-                      )
+                      ),
                     ],
                   );
-
-
                 });
           },
-        ));
+        ),
+        bottomNavigationBar: Container(
+          
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection(collectionName)
+                .doc(FirebaseAuth.instance.currentUser.email)
+                .collection("items")
+                .snapshots(),
+            builder: (BuildContext context, snapshot) {
+              if (snapshot.hasError) return Text('Something went wrong');
+              if (snapshot.connectionState == ConnectionState.waiting)
+                return Text("wait..");
+
+              // NB: I set the value of total = 0; so that anytime the stream
+              // builder is called, total starts from 0.
+              total = 0;
+              snapshot.data.docs.forEach((result) {
+                total += result.data()['price'];
+              });
+              print(total);
+              print('done');
+              return ListTile(
+                title: Text("Total Amount"),
+                subtitle: Text(
+                  "$total",
+                  style: TextStyle(
+                    color: Colors.green[900],
+                  ),
+                ),
+                trailing: Container(
+                  width: 160,
+                  child: ElevatedButton(
+                    child: Text("CHECK OUT"),
+                      style: ElevatedButton.styleFrom(
+                          shape: new RoundedRectangleBorder(
+                            borderRadius:
+                                new BorderRadius.circular(30.0),
+                          ),
+                          primary: Colors.amber,
+                          // padding: EdgeInsets.fromLTRB(
+                          //     100, 10, 100, 10)
+                          ),
+                      onPressed: () {
+                      },
+                      )
+                ),
+              );
+            },
+          ),
+        )
+     
+        );
   }
 }

@@ -206,4 +206,29 @@ class MyProvider extends ChangeNotifier {
   get throwDessertCategoriesList {
     return dessertCategoriesList;
   }
+
+// home card
+
+  List<ItemModle> homeList = [];
+  ItemModle homeModle;
+
+  Future<void> getHomeList() async {
+    List<ItemModle> newHomeList = [];
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('card').get();
+    querySnapshot.docs.forEach((element) {
+      homeModle = ItemModle(
+        image: element.data()['image'],
+        name: element.data()['name'],
+        price: element.data()['price'],
+        des: element.data()['descript'],
+      );
+      newHomeList.add(homeModle);
+      homeList = newHomeList;
+    });
+  }
+
+  get throwHomeList {
+    return homeList;
+  }
 }

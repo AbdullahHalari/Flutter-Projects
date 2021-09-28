@@ -9,6 +9,11 @@ import 'package:hungryman/categories/dessert.dart';
 import 'package:hungryman/categories/icecream.dart';
 import 'package:hungryman/categories/juices.dart';
 import 'package:hungryman/categories/sandwich.dart';
+import 'package:hungryman/modles/food_categories_modle.dart';
+import 'package:hungryman/provider/my_provider.dart';
+import 'package:hungryman/screen/homecard.dart';
+import 'package:provider/provider.dart';
+import 'package:hungryman/carditem.dart';
 
 class Home extends StatefulWidget {
   // const Home({ Key? key }) : super(key: key);
@@ -18,8 +23,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<ItemModle> homeList = [];
+  // List<FoodCategoriesModle> burgerCategoriesList = [];
+
   @override
   Widget build(BuildContext context) {
+    MyProvider provider = Provider.of<MyProvider>(context);
+    provider.getHomeList();
+    homeList = provider.throwHomeList;
+
+    // MyProvider provider = Provider.of<MyProvider>(context);
+    // provider.getBurgerCategoriesList();
+    // burgerCategoriesList = provider.throwBurgerCategoriesList;
     return WillPopScope(
       onWillPop: () async {
         // ScaffoldMessenger.of(context).showSnackBar(
@@ -216,7 +231,8 @@ class _HomeState extends State<Home> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Juiceitems()));
+                                builder: (context) =>
+                                    Juiceitems()));
                       },
                     ),
                   ],
@@ -238,7 +254,31 @@ class _HomeState extends State<Home> {
               foodcard(
                   "Pepperoni Pizza",
                   "A meaty feast of pepperoni, mozzarella cheese and tomato sauce.",
-                  "images/pepperoni.jpg")
+                  "images/pepperoni.jpg"),
+
+              // Container(height: 1100, child: Homecard(list: homeList)),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                child: Container(
+                    height: 20,
+                    child: ElevatedButton(
+                      onPressed: () {
+                       Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Homecard(list: homeList)));
+                      },
+                      child: Text("View All"),
+                      style: ElevatedButton.styleFrom(
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0),
+                        ),
+                        primary: Colors.amber,
+                      ),
+                    )),
+              )
             ],
           ),
         ),
@@ -297,7 +337,7 @@ class _HomeState extends State<Home> {
 
 }
 
-Widget foodcard(String foodname, String des, String image) {
+Widget foodcard(String foodname, String des, String image,) {
   // food card
 
   return Container(
@@ -344,6 +384,7 @@ Widget foodcard(String foodname, String des, String image) {
                         ),
                         onPressed: () {
                           // bottomsheet();
+                          
                         },
                       ),
                     )),
